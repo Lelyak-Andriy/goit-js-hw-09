@@ -28,7 +28,7 @@ function oncreatePromise(event) {
   
   for (let i = 1; i <= amount; i += 1) {
     let position = i;
-    delay += step
+     if (i !== 1) {delay += step}
     createPromise(i, delay)
   .then(({ position, delay }) => {
     console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);

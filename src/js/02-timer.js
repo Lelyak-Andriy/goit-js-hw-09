@@ -13,41 +13,36 @@ const secondsSpan = document.querySelector('[data-seconds]');
 let timerId = null;
  
 const options = {
-  enableTime: true,
-  time_24hr: true,
-  defaultDate: new Date(),
-   minuteIncrement: 1,
-   deltaTime: '',
-   endDate: '',
-   onClose(selectedDates) {
-     options.endDate = selectedDates[0].getTime();
-    //  console.log(selectedDates[0].getTime());
+enableTime: true,
+time_24hr: true,
+defaultDate: new Date(),
+minuteIncrement: 1,
+deltaTime: '',
+endDate: '',
+
+onClose(selectedDates) {
+options.endDate = selectedDates[0].getTime();
 options.deltaTime = options.endDate - options.defaultDate;
-  if (options.endDate < options.defaultDate) {
-    // clearInterval(timerId);
-      window.alert("Please choose a date in the future")
-    timerBtnEl.disabled = true;
-     
+if (options.endDate < options.defaultDate) {
+window.alert("Please choose a date in the future")
+timerBtnEl.disabled = true;     
      }
   else {
     timerBtnEl.disabled = false;
      }
-    //  console.log(options.defaultDate);
    },
    
-  onTimerStart() {
- 
-    setInterval(() => {
-     timerBtnEl.disabled = true;
-    options.deltaTime = options.endDate - Date.now();
-      const time = convertMs(options.deltaTime);
-timerBtnEl.removeEventListener('click', options.onTimerStart);
-      updateClockFace(time);
-      if (options.deltaTime <= 0) {
-        clearInterval(timerId);
-        clearTimer();
-      }
-   
+onTimerStart() {
+setInterval(() => {
+timerBtnEl.disabled = true;
+options.deltaTime = options.endDate - Date.now();
+const time = convertMs(options.deltaTime);
+
+updateClockFace(time);
+if (options.deltaTime <= 0) {
+clearInterval(timerId);
+clearTimer();
+      } 
   }, 1000 )
 }
 }
@@ -55,24 +50,24 @@ timerBtnEl.removeEventListener('click', options.onTimerStart);
 flatpickr(inputEl, options);
 
 function updateClockFace(evt) {
-      daysSpan.textContent = evt.days;
-      hoursSpan.textContent = evt.hours;
-      minutesSpan.textContent = evt.minutes;
-      secondsSpan.textContent = evt.seconds;
+daysSpan.textContent = evt.days;
+hoursSpan.textContent = evt.hours;
+minutesSpan.textContent = evt.minutes;
+secondsSpan.textContent = evt.seconds;
 }
 
 function clearTimer() {
-  daysSpan.textContent = '00';
-  hoursSpan.textContent = '00';
-  minutesSpan.textContent = '00';
-  secondsSpan.textContent = '00';
+daysSpan.textContent = '00';
+hoursSpan.textContent = '00';
+minutesSpan.textContent = '00';
+secondsSpan.textContent = '00';
 }
 
 
 timerBtnEl.addEventListener('click', options.onTimerStart);
 
 function addLeadingZero(value) {
-  return String(value).padStart(2, '0')
+return String(value).padStart(2, '0')
 }
 
 function convertMs(ms) {
