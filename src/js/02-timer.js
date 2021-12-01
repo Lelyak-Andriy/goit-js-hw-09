@@ -22,7 +22,7 @@ endDate: '',
 
 onClose(selectedDates) {
 options.endDate = selectedDates[0].getTime();
-options.deltaTime = options.endDate - options.defaultDate;
+options.deltaTime = this.endDate - this.defaultDate;
 if (options.endDate < options.defaultDate) {
 window.alert("Please choose a date in the future")
 timerBtnEl.disabled = true;     
